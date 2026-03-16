@@ -48,10 +48,10 @@ public class UserService {
         //Hashage du mot de passe avant l'enregistrement 
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(role);
-        user.setPhoto_url(dto.getPhoto_url());
+        user.setPhotoUrl(dto.getPhotoUrl());
 
         // Affecter la section seulement si ce n'est pas un admin
-        if (!role.getNom().equalsIgnoreCase("ADMIN")) {
+        if (!role.getNomRole().equalsIgnoreCase("ADMIN")) {
             if (dto.getSectionId() == null) {
                 throw new RuntimeException("La section est obligatoire pour ce rôle");
             }

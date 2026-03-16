@@ -33,7 +33,7 @@ public class User {
     @JsonIgnore
     private String password;
 
-    private String photo_url;
+    private String photoUrl;
 
     //Relation entre la table User et Role
     @ManyToOne

@@ -26,11 +26,12 @@ public class Lot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private Integer num_lot;
-    private Integer quantite_oeuf;
+
+    private Integer quantiteOeuf;
     private String fournisseur; 
-    private LocalDate date_arrivee;
+    private LocalDate dateArrivee;
     private String statut;
     
     //Relation entre Lot et Espece

@@ -20,10 +20,10 @@ public class Incubation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer quantite_oeuf_placee;
+    private Integer quantiteOeufPlacee;
     private String statut;
-    private LocalDate date_debut_incubation;
-    private LocalDate date_fin_incubation;
+    private LocalDate dateDebutIncubation;
+    private LocalDate dateFinIncubation;
 
     //Relation entre incubation et lot
     @ManyToOne

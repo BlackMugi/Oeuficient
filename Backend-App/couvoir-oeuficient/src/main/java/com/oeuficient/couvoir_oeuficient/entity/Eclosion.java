@@ -20,9 +20,9 @@ public class Eclosion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDate date_debut_eclosion;
-    private LocalDate date_fin_eclosion;
-    private Integer nombre_poussin;
+    private LocalDate dateDebutEclosion;
+    private LocalDate dateFinEclosion;
+    private Integer nombrePoussin;
 
     //Relation entre Eclosion et lot
     @ManyToOne

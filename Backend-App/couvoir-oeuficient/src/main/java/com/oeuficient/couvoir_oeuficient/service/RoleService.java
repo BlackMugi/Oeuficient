@@ -3,7 +3,7 @@ package com.oeuficient.couvoir_oeuficient.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
+import com.oeuficient.couvoir_oeuficient.dto.RoleDTO;
 import com.oeuficient.couvoir_oeuficient.entity.Role;
 import com.oeuficient.couvoir_oeuficient.repository.RoleRepository;
 
@@ -15,18 +15,16 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-        public Role creerRole(Role role){
-
-        //On verifie si le nom existe
-        if(role.getNom() == null || role.getNom().isEmpty()){
-            throw new RuntimeException("Le nom est obligatoire");
-        }
+    public Role creerRole(RoleDTO dto){
 
         //On verifie si nom est unique
-        if(roleRepository.existsByNom(role.getNom())){
-            throw new RuntimeException("Ce role existe déjà");
+        if(roleRepository.existsByNomRole(dto.getNomRole())){
+            throw new RuntimeException("Ce role existe déjà !");
         }
 
+        Role role = new Role();
+        role.setNomRole(dto.getNomRole().toUpperCase());
+        
         return roleRepository.save(role);
     }
 

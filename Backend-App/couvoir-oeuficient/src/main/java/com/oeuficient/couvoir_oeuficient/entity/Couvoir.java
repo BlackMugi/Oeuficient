@@ -24,7 +24,7 @@ public class Couvoir {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nom_couvoir;
+    private String nomCouvoir;
 
     //Relation entre Section et couvoir
     @ManyToOne

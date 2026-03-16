@@ -25,5 +25,5 @@ public class UserDTO {
 
     private Integer roleId; 
     private Integer sectionId;
-    private String photo_url;
+    private String photoUrl;
 }

@@ -23,7 +23,7 @@ public class Eclosoir {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nom_eclosoir;
+    private String nomEclosoir;
     
     //Relation entre Eclosoir et Section
     @ManyToOne

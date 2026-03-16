@@ -23,8 +23,8 @@ public class Chariot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nom_chariot;
-    private Integer capacite_max_oeuf;
+    private String nomChariot;
+    private Integer capaciteMaxOeuf;
     private String statut;
 
     //Relation entre Chariot et Couvoir

@@ -23,7 +23,7 @@ public class Annonce {
     private String type;
     private String titre;
     private String description;
-    private LocalDate date_annonce;
+    private LocalDate dateAnnonce;
 
     //Relation entre Annonce et utilisateur
     @ManyToOne
