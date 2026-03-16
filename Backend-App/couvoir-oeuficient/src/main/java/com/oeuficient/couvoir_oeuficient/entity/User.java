@@ -2,6 +2,9 @@ package com.oeuficient.couvoir_oeuficient.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,11 +23,16 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_user;
+    private Integer id;
     private String nom;
     private String prenom;
+
+    @Column(unique = true)
     private String email;
+
+    @JsonIgnore
     private String password;
+
     private String photo_url;
 
     //Relation entre la table User et Role
@@ -39,5 +47,6 @@ public class User {
 
     //Relation entre Annonce et utilisateur
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Annonce>annonces;
 }

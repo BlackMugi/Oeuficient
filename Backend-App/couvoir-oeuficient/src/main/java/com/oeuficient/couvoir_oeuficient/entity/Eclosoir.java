@@ -2,6 +2,8 @@ package com.oeuficient.couvoir_oeuficient.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,7 @@ import lombok.Setter;
 public class Eclosoir {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_eclosoir;
+    private Integer id;
     private String nom_eclosoir;
     
     //Relation entre Eclosoir et Section
@@ -30,6 +32,7 @@ public class Eclosoir {
 
     //Relation entre Eclosoir et Eclosion
     @OneToMany(mappedBy = "eclosoir")
+    @JsonIgnore
     private List<Eclosion>eclosions;
     
 }

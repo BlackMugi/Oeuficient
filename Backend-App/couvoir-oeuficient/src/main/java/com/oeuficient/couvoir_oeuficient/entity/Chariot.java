@@ -2,6 +2,8 @@ package com.oeuficient.couvoir_oeuficient.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,7 @@ import lombok.Setter;
 public class Chariot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_chariot;
+    private Integer id;
     private String nom_chariot;
     private Integer capacite_max_oeuf;
     private String statut;
@@ -32,6 +34,7 @@ public class Chariot {
 
     //Relation entre Chariot et Incubation
     @OneToMany(mappedBy = "chariot")
+    @JsonIgnore
     private List<Incubation>incubations;
     
 

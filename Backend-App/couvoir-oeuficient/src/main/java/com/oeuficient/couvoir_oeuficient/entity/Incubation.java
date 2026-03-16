@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Incubation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_incubation;
+    private Integer id;
     private Integer quantite_oeuf_placee;
     private String statut;
     private LocalDate date_debut_incubation;

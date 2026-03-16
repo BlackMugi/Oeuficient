@@ -3,6 +3,8 @@ package com.oeuficient.couvoir_oeuficient.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ import lombok.Setter;
 public class Lot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_lot;
+    private Integer id;
     
     @Column(unique = true)
     private Integer num_lot;
@@ -39,9 +41,11 @@ public class Lot {
 
     //Relation entre incubation et lot
     @OneToMany(mappedBy = "lot")
+    @JsonIgnore
     private List<Incubation>incubations;
 
     //Relation entre Eclosion et lot
     @OneToMany(mappedBy = "lot")
+    @JsonIgnore
     private List<Eclosion>eclosions;
 }

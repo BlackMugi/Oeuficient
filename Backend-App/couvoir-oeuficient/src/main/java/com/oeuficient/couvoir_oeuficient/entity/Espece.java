@@ -2,6 +2,8 @@ package com.oeuficient.couvoir_oeuficient.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +20,7 @@ import lombok.Setter;
 public class Espece {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_espece;
+    private Integer id;
     private String nom_espece;
     private Integer duree_incubation;
     private Integer duree_eclosion;
@@ -27,6 +29,7 @@ public class Espece {
 
     //Relation entre Espece et Lot
     @OneToMany(mappedBy = "espece")
+    @JsonIgnore
     private List<Lot>lots;
 
 }

@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Annonce {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_annonce;
+    private Integer id;
     private String type;
     private String titre;
     private String description;

@@ -2,6 +2,8 @@ package com.oeuficient.couvoir_oeuficient.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +23,7 @@ import lombok.Setter;
 public class Couvoir {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_couvoir;
+    private Integer id;
     private String nom_couvoir;
 
     //Relation entre Section et couvoir
@@ -31,5 +33,6 @@ public class Couvoir {
 
     //Relation entre Couvoir et Chariot
     @OneToMany(mappedBy = "couvoir")
+    @JsonIgnore
     private List<Chariot>chariots;
 }

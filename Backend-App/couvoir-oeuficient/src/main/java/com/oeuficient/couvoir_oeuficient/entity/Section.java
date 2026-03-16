@@ -2,6 +2,8 @@ package com.oeuficient.couvoir_oeuficient.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,18 +20,21 @@ import lombok.Setter;
 public class Section { 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_section;
+    private Integer id;
     private String nom_section;
 
     //Relation entre la table sections et users
     @OneToMany(mappedBy = "section")
+    @JsonIgnore
     private List<User>users;
 
     //Relation entre la table sections et Couvoir
     @OneToMany(mappedBy = "section")
+    @JsonIgnore
     private List<Couvoir>couvoirs;
 
     //Relation entre la table sections et Eclosoir
     @OneToMany(mappedBy = "section")
+    @JsonIgnore
     private List<Eclosoir>eclosoirs;
 }

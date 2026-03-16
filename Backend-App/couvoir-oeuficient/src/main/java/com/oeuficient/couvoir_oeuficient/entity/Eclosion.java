@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Eclosion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_eclosion;
+    private Integer id;
     private LocalDate date_debut_eclosion;
     private LocalDate date_fin_eclosion;
     private Integer nombre_poussin;
