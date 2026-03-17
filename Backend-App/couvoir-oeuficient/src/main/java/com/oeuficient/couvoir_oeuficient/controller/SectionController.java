@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping("api/sections")
+@RequestMapping("/api/sections")
 
 public class SectionController {
     private final SectionService sectionService;

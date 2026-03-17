@@ -34,6 +34,6 @@ public class Espece {
     //Relation entre Espece et Lot
     @OneToMany(mappedBy = "espece")
     @JsonIgnore
-    private List<Lot>lots;
+    private List<Lot> lots;
 
 }
