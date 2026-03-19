@@ -27,7 +27,7 @@ public class Lot {
     private Integer id;
     
     @Column(nullable = false, unique = true)
-    private Integer num_lot;
+    private Integer numLot;
 
     private Integer quantiteOeuf;
     private String fournisseur; 
