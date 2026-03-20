@@ -1,135 +1,93 @@
-// src/pages/Login.tsx
-import React, { useState, type JSX } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react'; // Utilisation de Lucide pour les icônes
 import poussinoeuf from "../assets/img/poussin-oeuf.png";
-
-export default function Login(): JSX.Element {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [remember, setRemember] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const navigate = useNavigate();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-
-    // mot de pass  peut etre modifier
-    if (email === "admin@euficien.sn" && password === "1234") {
-      localStorage.setItem("auth", "true"); // sauvegarde la connexion
-      navigate("/"); // redirige vers la page principale
-    } else {
-      alert("Email ou mot de passe incorrect");
-    }
-  };
+const LoginPage: React.FC = () => {
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#EEECE0] p-6">
-      {/* Carte principale */}
-      <div className="bg-white rounded-2xl shadow-lg flex w-full max-w-5xl overflow-hidden">
-        {/* Partie gauche : formulaire */}
-        <div className="flex-1 p-10">
-          {/* Logo */}
-          <div className="flex items-center gap-2 mb-6">
-            <span className="text-2xl">🐣</span>
-            <span className="font-bold text-[#FFBA28] text-lg">euficien</span>
-          </div>
+    <div className="relative bg-[#F7F7F5] overflow-hidden mx-auto shadow-2xl" 
+         style={{ width: '1440px', height: '1024px' }}>
+      
+      {/* Ombre portée du conteneur principal (Rectangle 16) */}
+      <div className="absolute left-[272px] top-[193px] bg-[#D9D9D9] rounded-[20px] shadow-[4px_4px_4px_rgba(0,0,0,0.25)]"
+           style={{ width: '896px', height: '450px' }} />
 
-          {/* Texte bienvenue */}
-          <h2 className="text-2xl font-bold text-gray-800 mb-1">Bienvenue !</h2>
-          <p className="text-gray-500 mb-6">
-            Connectez-vous pour accéder à votre espace de travail
-          </p>
+      {/* --- SECTION FORMULAIRE (Gauché) --- */}
+      <div className="absolute left-[272px] top-[193px] bg-white rounded-l-[20px]" 
+           style={{ width: '448px', height: '450px' }}>
+        
+        {/* Logo */}
+        <div className="absolute left-[20px] top-[14px] flex items-center gap-1">
+            <span className="text-[24px] font-black text-[#E7A519] italic font-['Barlow_Condensed']">Oeuficien</span>
+        </div>
 
-          {/* Formulaire */}
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email */}
-            <div>
-              <label className="text-sm text-gray-600">Email</label>
-              <input
-                type="email"
-                placeholder="exemple@euficient.sn"
-                value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(e.target.value)
-                }
-                className="w-full mt-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#FFBA28]"
-                required
-              />
-            </div>
+        {/* Textes d'accueil */}
+        <h1 className="absolute left-[35px] top-[67px] font-['Barlow_Condensed'] font-semibold text-[32px] text-black">
+          Bienvenue !
+        </h1>
+        <p className="absolute left-[35px] top-[105px] font-['Barlow_Condensed'] font-normal text-[18px] text-[#999999]">
+          Connectez-vous pour accéder à votre espace de travail
+        </p>
 
-            {/* Mot de passe */}
-            <div>
-              <label className="text-sm text-gray-600">Mot de passe</label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="****************"
-                  value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setPassword(e.target.value)
-                  }
-                  className="w-full mt-1 border rounded-lg px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-[#FFBA28]"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 text-sm"
-                  aria-label={
-                    showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"
-                  }
-                >
-                  👁
-                </button>
-              </div>
-            </div>
+        {/* Champ Email */}
+        <div className="absolute left-[41px] top-[164px] flex items-center gap-2">
+            <Mail size={16} className="text-[#666666]" />
+            <span className="font-['Barlow_Condensed'] text-[16px] text-[#666666]">Email</span>
+        </div>
+        <div className="absolute left-[37px] top-[186px] border border-[rgba(174,174,174,0.6)] rounded-[10px] bg-white px-[35px] flex items-center" 
+             style={{ width: '380px', height: '40px' }}>
+            <span className="font-['Barlow_Condensed'] text-[#999999] text-[16px]">exemple@oeuficient.sn</span>
+        </div>
 
-            {/* Se souvenir + Mot de passe oublié */}
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-gray-600">
-                <input
-                  type="checkbox"
-                  checked={remember}
-                  onChange={() => setRemember(!remember)}
-                />
-                Se souvenir de moi
-              </label>
-
-              <span className="text-[#FFBA28] cursor-pointer hover:underline">
-                Mot de passe oublié ?
-              </span>
-            </div>
-
-            {/* Bouton se connecter */}
-            <button
-              type="submit"
-              className="w-full bg-[#FFBA28] hover:bg-[#FFBA00] text-white py-2 rounded-lg font-semibold transition"
-            >
-              Se connecter
+        {/* Champ Mot de passe */}
+        <div className="absolute left-[40px] top-[252px] flex items-center gap-2">
+            <Lock size={16} className="text-[#666666]" />
+            <span className="font-['Barlow_Condensed'] text-[16px] text-[#666666]">Mot de passe</span>
+        </div>
+        <div className="absolute left-[36px] top-[275px] border border-[rgba(174,174,174,0.6)] rounded-[10px] bg-white px-[36px] flex items-center justify-between" 
+             style={{ width: '380px', height: '40px' }}>
+            <span className="font-['Barlow_Condensed'] text-[#999999] text-[16px]">****************</span>
+            <button onClick={() => setShowPassword(!showPassword)} className="absolute right-4 text-[#999999]">
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
-          </form>
         </div>
 
-        {/* Partie droite : image avec bordure en dégradé radial */}
-          <div
-            className="
-              w-[461px] h-[466px]
-              rounded-xl shadow-lg overflow-hidden
-              border-4 border-transparent
-              bg-[radial-gradient(ellipse_at_center,_#FFCF68_77%,_#F5B52D_88%,_#E7A519_100%)]
-              bg-origin-border
-              [background-clip:padding-box,_border-box]
-              flex items-center justify-center
-            "
-          >
-            <img
-              src={poussinoeuf}
-              alt="poussin"
-              className="w-full h-full object-cover rounded-xl"
-            />
+        {/* Remember Me & Forgot Password */}
+        <div className="absolute left-[44px] top-[341px] flex items-center justify-between" style={{ width: '376px' }}>
+            <div className="flex items-center gap-2">
+                <div className="w-[15px] h-[15px] border border-[#AEAEAE] bg-white" />
+                <span className="font-['Barlow_Condensed'] text-[16px] text-[#666666]">Se souvenir de moi</span>
+            </div>
+            <span className="font-['Barlow_Condensed'] font-semibold text-[16px] text-[#E7A519] cursor-pointer">
+                Mot de passe oublié ?
+            </span>
         </div>
+
+        {/* Bouton de connexion */}
+        <button className="absolute left-[40px] top-[385px] bg-[#E7A519] rounded-[10px] flex items-center justify-center transition-hover hover:bg-[#d49416]" 
+                style={{ width: '380px', height: '40px' }}>
+            <span className="font-['Barlow_Condensed'] font-semibold text-[16px] text-white">Se connecter</span>
+        </button>
       </div>
+
+      {/* --- SECTION IMAGE HERO (Droite) --- */}
+      <div className="absolute left-[720px] top-[193px] rounded-r-[20px] overflow-hidden" 
+           style={{ 
+             width: '448px', 
+             height: '450px',
+             background: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 207, 104, 0.77) 0%, rgba(245, 181, 45, 0.885) 74.99%, #E7A519 99.99%)'
+           }}>
+        {/* Ici l'image du poussin avec l'oeuf */}
+        <img 
+          src={poussinoeuf}
+              alt="poussin"
+          className="w-full h-full object-contain"
+          style={{ transform: 'scale(0.9)' }} 
+        />
+      </div>
+
     </div>
   );
-}
+};
+
+export default LoginPage;
