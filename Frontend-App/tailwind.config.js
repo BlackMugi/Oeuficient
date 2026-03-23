@@ -4,8 +4,14 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
-  },
+theme: {
+  extend: {
+    colors: {
+      primary: "#E7A519",
+      navbar: "#EEECE0",
+      avatar: "#D9D9D9",
+    }
+  }
+},
   plugins: [],
 };
