@@ -3,6 +3,7 @@ package com.oeuficient.couvoir_oeuficient.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import com.oeuficient.couvoir_oeuficient.dto.UserDTO;
 import com.oeuficient.couvoir_oeuficient.entity.User;
 import com.oeuficient.couvoir_oeuficient.entity.Role;
@@ -68,4 +69,5 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
 }
