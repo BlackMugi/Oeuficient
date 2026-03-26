@@ -13,7 +13,7 @@ interface Incubation {
   color: string;
 }
 
-const Dashboard: React.FC = () => {
+const Header: React.FC = () => {
   const employees: Employee[] = [
     { name: 'Mamadou Diagne', role: 'Responsable section-Incubation' },
     { name: 'Dieynaba Ndiaye', role: 'Employée - Incubation' },
@@ -126,4 +126,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default Header;
