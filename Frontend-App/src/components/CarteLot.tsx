@@ -1,18 +1,18 @@
-import { Calendar, CheckCircle2 } from 'lucide-react'
+import { Calendar, CheckCircle2 } from 'lucide-react';
 
 interface Props {
-  espece: string
-  qte: number
-  lot: string
-  arr: string
-  age: string
-  inc: string
-  img: string
-  iconClock: string
-  T: string
-  L: string
-  estSelectionne: boolean
-  onSelect: () => void
+  espece: string;
+  qte: number;
+  lot: string;
+  arr: string;
+  age: string;
+  inc: string;
+  img: string;
+  iconClock: string;
+  T: string;
+  L: string;
+  estSelectionne: boolean;
+  onSelect: () => void;
 }
 
 export const CarteLot = ({
@@ -120,4 +120,4 @@ export const CarteLot = ({
       SÉLECTIONNER CE LOT
     </button>
   </div>
-)
+);

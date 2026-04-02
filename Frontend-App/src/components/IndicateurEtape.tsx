@@ -1,7 +1,7 @@
 interface Props {
-  numero: number
-  label: string
-  estActif: boolean
+  numero: number;
+  label: string;
+  estActif: boolean;
 }
 
 export const IndicateurEtape = ({ numero, label, estActif }: Props) => {
@@ -33,5 +33,5 @@ export const IndicateurEtape = ({ numero, label, estActif }: Props) => {
         {label}
       </span>
     </div>
-  )
-}
+  );
+};

@@ -41,8 +41,11 @@ public class AuthController {
         
         User user = userRepository.findByEmail(loginRequest.getEmail())
             .orElseThrow();
-        
-        return new AuthResponseDTO(token, user.getId(), user.getEmail(), user.getRole().getNomRole());
+
+            // Gérer le cas où la section est null (pour les admins)
+            String sectionName = user.getSection() != null ? user.getSection().getNomSection() : null;
+
+        return new AuthResponseDTO(token, user.getId(), user.getEmail(), user.getPrenom(), user.getRole().getNomRole(), sectionName );
     }
     
 }

@@ -1,19 +1,19 @@
-import { IndicateurEtape } from './IndicateurEtape'
+import { IndicateurEtape } from './IndicateurEtape';
 
 export const BarreProgression = ({
   etapeActuelle,
 }: {
-  etapeActuelle: number
+  etapeActuelle: number;
 }) => {
   const ETP = [
     'Sélection du lot',
     'Choix du couvoir',
     'Configuration chariots',
     'Validation',
-  ]
+  ];
 
   // Calcul : Si etapeActuelle = 1, on veut 33.3% de orange (du 1 au 2)
-  const progressionOrange = (etapeActuelle / (ETP.length - 1)) * 100
+  const progressionOrange = (etapeActuelle / (ETP.length - 1)) * 100;
 
   return (
     <div className="relative flex justify-between items-start w-[850px] mx-auto py-4">
@@ -36,5 +36,5 @@ export const BarreProgression = ({
         />
       ))}
     </div>
-  )
-}
+  );
+};

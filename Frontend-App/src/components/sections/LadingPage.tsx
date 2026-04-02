@@ -1,8 +1,10 @@
-import { easeOut, motion } from 'framer-motion'
-import poussin from '../../assets/img/poussin-coquille.png'
+import { easeOut, motion } from 'framer-motion';
+import poussin from '../../assets/img/poussin-coquille.png';
+import { getUserPrenom } from '../../services/authService';
 
-const PRIMARY = '#F5B52D' //100%
-const PRIMARY_DARK = '#E7A519' //100%
+const PRIMARY = '#F5B52D'; //100%
+const PRIMARY_DARK = '#E7A519'; //100%
+const prenom = getUserPrenom();
 
 export default function LandingPage() {
   return (
@@ -16,7 +18,7 @@ export default function LandingPage() {
           viewport={{ once: true, amount: 0.2 }}
         >
           {/*texte d'accueil */}
-          <p className="text-gray-600 mb-8">Bonjour Utilisateur ! 👋</p>
+          <p className="text-gray-600 mb-8">Bonjour {prenom} ! 👋</p>
 
           <h2 className="text-2xl font-normal text-gray-800">
             Bienvenue sur{' '}
@@ -63,7 +65,7 @@ export default function LandingPage() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
 
-LandingPage()
+LandingPage();

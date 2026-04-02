@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
 interface Employee {
-  name: string
-  role: string
+  name: string;
+  role: string;
 }
 
 interface Incubation {
-  lot: string
-  type: string
-  status: string
-  progress: string
-  color: string
+  lot: string;
+  type: string;
+  status: string;
+  progress: string;
+  color: string;
 }
 
 const Header: React.FC = () => {
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     { name: 'Dieynaba Ndiaye', role: 'Employée - Incubation' },
     { name: 'Mouhamed Diouf', role: 'Employé - Incubation' },
     { name: 'Aminata Seck', role: 'Employée - Incubation' },
-  ]
+  ];
 
   const incubations: Incubation[] = [
     {
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
       progress: '50%',
       color: 'bg-teal-600',
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
@@ -168,7 +168,7 @@ const Header: React.FC = () => {
         </section>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
