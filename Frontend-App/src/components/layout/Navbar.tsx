@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Logo from '../../assets/img/logo.png';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { logout, getUserFirstLetter, getUserPrenom } from '../../services/authService';
+import { logout, getUserFirstLetter } from '../../services/authService';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -17,7 +17,6 @@ export default function Navbar() {
   };
 
   const firstLetter = getUserFirstLetter();
-  const prenom = getUserPrenom();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-navbar">

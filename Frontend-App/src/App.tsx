@@ -6,25 +6,46 @@ import Tableaudetravailduouvoir1 from './pages/tableauDeTravail/TableauDeTavailR
 import { BarreProgression } from './components/BarreProgression';
 import { IndicateurEtape } from './components/IndicateurEtape';
 import { TableauBord } from './pages/TableauBord';
+import { ProtectedRoute } from './middleware/ProtectedRoute';
+
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/employe-tableau-detravail"
-          element={<Tableaudetravail1 />}
-        />
-        <Route path="/tableau3" element={<Tableaudetravailduouvoir1 />} />
-        <Route path="/admin" element={<TableauBord />} />
-        <Route
-          path="/tableau6"
-          element={<IndicateurEtape numero={0} label={''} estActif={false} />}
+
+        {/* Routes protégées */}
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}
         />
         <Route
-          path="/tableau7"
-          element={<BarreProgression etapeActuelle={0} />}
+          path="/employe-tableau-detravail" element={<ProtectedRoute><Tableaudetravail1 /></ProtectedRoute>}
+        />
+        <Route
+          path="/tableau3" element={
+            <ProtectedRoute>
+              <Tableaudetravailduouvoir1 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin" element={
+            <ProtectedRoute>
+              <TableauBord />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/tableau6" element={
+            <ProtectedRoute>
+              <IndicateurEtape numero={0} label={''} estActif={false} />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/tableau7" element={
+            <ProtectedRoute>
+              <BarreProgression etapeActuelle={0} />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </BrowserRouter>
