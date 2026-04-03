@@ -4,6 +4,7 @@ import com.oeuficient.couvoir_oeuficient.security.JwtAuthenticationFilter;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,7 +43,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/users/**").hasRole("ADMIN")
                 .requestMatchers("/api/roles/**").hasRole("ADMIN")
                 .requestMatchers("/api/sections/**").hasRole("ADMIN")
-                .requestMatchers("/api/annonces/**").hasRole("ADMIN")
+
+                // annonces
+                .requestMatchers(HttpMethod.GET, "/api/annonces/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/annonces/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .sessionManagement(session ->

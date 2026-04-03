@@ -6,12 +6,18 @@ export interface Annonce {
   dateAnnonce: string; 
 }
 
-const API_URL = 'http://localhost:8080/api/annonces'; 
-
 export async function fetchAnnonces(): Promise<Annonce[]> {
-  const res = await fetch(API_URL);
+  const token = localStorage.getItem("token")
+
+  const res = await fetch("http://localhost:8080/api/annonces", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
   if (!res.ok) {
-    throw new Error('Erreur lors de la récupération des annonces');
+    throw new Error("Erreur lors de la récupération des annonces")
   }
-  return res.json();
+
+  return res.json()
 }
