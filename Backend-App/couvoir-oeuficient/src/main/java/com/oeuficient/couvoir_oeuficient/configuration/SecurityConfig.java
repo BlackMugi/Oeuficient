@@ -1,7 +1,9 @@
+
 package com.oeuficient.couvoir_oeuficient.configuration;
 
 import com.oeuficient.couvoir_oeuficient.security.JwtAuthenticationFilter;
 import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,32 +29,91 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
+
         http
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(List.of("http://localhost:5173"));
-                config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+                config.setAllowedOrigins(
+                    List.of("http://localhost:5173")
+                );
+                config.setAllowedMethods(
+                    List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                );
                 config.setAllowedHeaders(List.of("*"));
                 config.setAllowCredentials(true);
                 return config;
             }))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/login","/api/public/**").permitAll()
-                .requestMatchers("/api/users/**").hasRole("ADMIN")
-                .requestMatchers("/api/roles/**").hasRole("ADMIN")
-                .requestMatchers("/api/sections/**").hasRole("ADMIN")
 
-                // annonces
-                .requestMatchers(HttpMethod.GET, "/api/annonces/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/api/annonces/**").hasRole("ADMIN")
+                // Routes publiques
+                .requestMatchers(
+                    "/api/auth/login",
+                    "/api/public/**"
+                ).permitAll()
+
+                // Administration : utilisateurs, rôles et sections
+                .requestMatchers(
+                    "/api/users/**",
+                    "/api/roles/**",
+                    "/api/sections/**"
+                ).hasRole("ADMIN")
+
+                // Annonces : lecture pour les connectés, gestion par ADMIN
+                .requestMatchers(
+                    HttpMethod.GET, "/api/annonces/**"
+                ).authenticated()
+                .requestMatchers(
+                    "/api/annonces/**"
+                ).hasRole("ADMIN")
+
+                // Référentiels : lecture pour les connectés,
+                // création et modification réservées à ADMIN
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/chariots/**",
+                    "/api/couvoirs/**",
+                    "/api/eclosoirs/**",
+                    "/api/especes/**",
+                    "/api/lots/**"
+                ).authenticated()
+                .requestMatchers(
+                    "/api/chariots/**",
+                    "/api/couvoirs/**",
+                    "/api/eclosoirs/**",
+                    "/api/especes/**",
+                    "/api/lots/**"
+                ).hasRole("ADMIN")
+
+                // Incubations et éclosions :
+                // lecture pour les connectés
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/incubations/**",
+                    "/api/eclosions/**"
+                ).authenticated()
+
+                // Écriture autorisée à ADMIN et RESPONSABLE.
+                // Le contrôle de la section sera réalisé dans les services.
+                .requestMatchers(
+                    "/api/incubations/**",
+                    "/api/eclosions/**"
+                ).hasAnyRole("ADMIN", "RESPONSABLE")
+
+                // Toute autre route exige une authentification
                 .anyRequest().authenticated()
             )
             .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                session.sessionCreationPolicy(
+                    SessionCreationPolicy.STATELESS
+                )
             )
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(
+                jwtAuthFilter,
+                UsernamePasswordAuthenticationFilter.class
+            );
 
         return http.build();
     }
@@ -63,7 +124,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }
