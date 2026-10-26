@@ -9,8 +9,9 @@ import com.oeuficient.couvoir_oeuficient.entity.Lot;
 import com.oeuficient.couvoir_oeuficient.repository.ChariotRepository;
 import com.oeuficient.couvoir_oeuficient.repository.IncubationRepository;
 import com.oeuficient.couvoir_oeuficient.repository.LotRepository;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+
 
 @Service
 public class IncubationService {
@@ -26,28 +27,46 @@ public class IncubationService {
         this.lotRepository = lotRepository;
         this.chariotRepository = chariotRepository;
     }
+    public List<Incubation> getAllIncubations() {
+        return incubationRepository.findAll();
+    }
 
+    @Transactional
     public Incubation creerIncubation(IncubationDTO dto) {
-
         Lot lot = lotRepository.findById(dto.getLotId())
                 .orElseThrow(() -> new RuntimeException("Lot non trouvé"));
 
         Chariot chariot = chariotRepository.findById(dto.getChariotId())
                 .orElseThrow(() -> new RuntimeException("Chariot non trouvé"));
 
-        // 🔥 Règle métier 1 : quantité <= stock du lot
+        // Vérifier la disponibilité du stock
+        if (lot.getQuantiteOeuf() == null || lot.getQuantiteOeuf() < 0) {
+            throw new RuntimeException("Stock du lot invalide");
+        }
+
+        // Vérifier la quantité du lot est non nulle
+        if (dto.getQuantiteOeufPlacee() == null
+                || dto.getQuantiteOeufPlacee() <= 0) {
+            throw new RuntimeException("La quantité doit être supérieure à 0");
+        }
+
         if (dto.getQuantiteOeufPlacee() > lot.getQuantiteOeuf()) {
             throw new RuntimeException("Quantité supérieure au stock du lot");
         }
 
-        // 🔥 Règle métier 2 : capacité du chariot
-        if (dto.getQuantiteOeufPlacee() > chariot.getCapaciteMaxOeuf()) {
+        // Vérifier la capacité du chariot
+        if (chariot.getCapaciteMaxOeuf() == null
+                || dto.getQuantiteOeufPlacee() > chariot.getCapaciteMaxOeuf()) {
             throw new RuntimeException("Dépasse la capacité du chariot");
         }
-
-        // 🔥 Règle métier 3 : cohérence des dates
-        if (dto.getDateFinIncubation().isBefore(dto.getDateDebutIncubation())) {
-            throw new RuntimeException("Date de fin invalide");
+        
+        
+        // Vérifier les dates
+        if (dto.getDateDebutIncubation() == null
+                || dto.getDateFinIncubation() == null
+                || dto.getDateFinIncubation()
+                        .isBefore(dto.getDateDebutIncubation())) {
+            throw new RuntimeException("Dates d'incubation invalides");
         }
 
         Incubation incubation = new Incubation();
@@ -58,10 +77,13 @@ public class IncubationService {
         incubation.setLot(lot);
         incubation.setChariot(chariot);
 
-        return incubationRepository.save(incubation);
-    }
+        // Déduire les œufs du stock du lot
+        lot.setQuantiteOeuf(
+                lot.getQuantiteOeuf() - dto.getQuantiteOeufPlacee()
+        );
 
-    public List<Incubation> getAllIncubations() {
-        return incubationRepository.findAll();
+        lotRepository.save(lot);
+
+        return incubationRepository.save(incubation);
     }
 }
