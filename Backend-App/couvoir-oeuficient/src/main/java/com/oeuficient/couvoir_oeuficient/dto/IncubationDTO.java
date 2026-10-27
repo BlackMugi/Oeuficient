@@ -21,9 +21,6 @@ public class IncubationDTO {
     @NotNull(message = "La date de début est obligatoire")
     private LocalDate dateDebutIncubation;
 
-    @NotNull(message = "La date de fin est obligatoire")
-    private LocalDate dateFinIncubation;
-
     @NotNull(message = "L'id du lot est obligatoire")
     private Integer lotId;
 

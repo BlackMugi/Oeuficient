@@ -4,12 +4,15 @@ import org.springframework.stereotype.Service;
 
 import com.oeuficient.couvoir_oeuficient.dto.IncubationDTO;
 import com.oeuficient.couvoir_oeuficient.entity.Chariot;
+import com.oeuficient.couvoir_oeuficient.entity.Espece;
 import com.oeuficient.couvoir_oeuficient.entity.Incubation;
 import com.oeuficient.couvoir_oeuficient.entity.Lot;
 import com.oeuficient.couvoir_oeuficient.repository.ChariotRepository;
 import com.oeuficient.couvoir_oeuficient.repository.IncubationRepository;
 import com.oeuficient.couvoir_oeuficient.repository.LotRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -62,18 +65,19 @@ public class IncubationService {
         
         
         // Vérifier les dates
-        if (dto.getDateDebutIncubation() == null
-                || dto.getDateFinIncubation() == null
-                || dto.getDateFinIncubation()
-                        .isBefore(dto.getDateDebutIncubation())) {
-            throw new RuntimeException("Dates d'incubation invalides");
+        Espece espece = lot.getEspece();
+            if (espece == null || espece.getDureeIncubation() == null) {
+                throw new RuntimeException("Le lot n'a pas d'espèce ou de durée d'incubation définie");
         }
+
+        LocalDate dateFin = dto.getDateDebutIncubation()
+            .plusDays(espece.getDureeIncubation());
 
         Incubation incubation = new Incubation();
         incubation.setQuantiteOeufPlacee(dto.getQuantiteOeufPlacee());
         incubation.setStatut(dto.getStatut());
         incubation.setDateDebutIncubation(dto.getDateDebutIncubation());
-        incubation.setDateFinIncubation(dto.getDateFinIncubation());
+        incubation.setDateFinIncubation(dateFin);
         incubation.setLot(lot);
         incubation.setChariot(chariot);
 
